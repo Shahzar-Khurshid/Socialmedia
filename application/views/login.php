@@ -4,9 +4,12 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>Social Media</title>
-        <link rel="stylesheet" href="../static/css/style.css">
-        <script src="../static/js/external/jquery-3.5.0.min.js"></script>
-        <script src="../static/js/login.js"></script>
+        <link rel="stylesheet" href="<?= base_url() ?>/static/css/style.css">
+        <script src="<?= base_url() ?>/static/js/external/jquery-3.5.0.min.js"></script>
+        <script src="<?= base_url() ?>/static/js/login.js"></script>
+        <script>
+            var base_url = '<?= base_url(); ?>';
+        </script>
         <!--<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
         -->
     </head>
@@ -19,17 +22,17 @@
                 <div class="bigger-view" id="about-login">
                     <h1>Existing User</h1>
                     <h1>Log-in</h1>
-                    <a href="./Registration" class="danger">New User Create Account</a>
+                    <a href="<?= base_url() ?>Registration" class="danger">New User Create Account</a>
                 </div>
             </div>
             <div class="middle">
                 <div class="type-selection">
                     <div class="existing-user">
-                        <a href="#" class="danger">Existing User</a>
-                        <hr>
+                        <a href="#" class="selected-user-type">Existing User</a>
+                        <hr class="user-hr">
                     </div>
                     <div class="new-user">
-                        <a href="./Registration" class="danger">New user</a>
+                        <a href="<?= base_url() ?>Registration" class="danger">New user</a>
                     </div>
                 </div>
                 <div class="existing-user-form">

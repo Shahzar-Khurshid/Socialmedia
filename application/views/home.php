@@ -4,7 +4,13 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>Social Media</title>
-        <link rel="stylesheet" href="http://127.0.0.1/social_media/static/css/style.css">
+        <link rel="stylesheet" href="<?= base_url() ?>/static/css/style.css">
+        <script src="<?= base_url() ?>/static/js/external/jquery-3.5.0.min.js"></script>
+        <script src="<?= base_url() ?>/static/js/post.js"></script>
+        <script src="<?= base_url() ?>/static/js/fetch_status.js"></script>
+        <script>
+            var base_url = '<?= base_url(); ?>';
+        </script>
         <!--<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
         -->
     </head>
@@ -17,10 +23,10 @@
 
                 <div class="navbar">
                     <div class="dashboard">
-                        <a href="<?= base_url(); ?>index.php/User/profile" class="danger gray" id="danger-big">Profile</a>
+                        <a href="<?= base_url(); ?>User/profile" class="danger gray" id="danger-big">Profile</a>
                         <hr>
                     </div>
-                    <a href="<?= base_url(); ?>index.php/Login/logout" class="danger">
+                    <a href="<?= base_url(); ?>Login/logout" class="danger">
                         <div class="btn">
                             Logout
                         </div>
@@ -30,53 +36,29 @@
             <div class="home-middle">
                 <form class="status-form">
                     <h3>Write something here</h3>
-                    <textarea name="name"></textarea>
-                    <button type="button" name="post">Submit</button>
+                    <textarea name="status" ></textarea>
+                    <input type="text" name="id" value="<?= $user['id']; ?>" hidden />
+                    <input type="text" name="unique_id" value="<?= $user['unique_id']; ?>" hidden />
+                    <button type="submit" name="post" id="submit-post" disabled="disabled">Submit</button>
                 </form>
-                <div class="status">
-                    <div class="home-content content">
+
+                <div class="new-post">
+                </div>
+
+                <div class="status" id="all-status">
+                    <div class="home-content content content-placeholder">
                         <div class="information">
-                            <h4>Name</h4>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            <h4 class="status-owner"></h4>
+                            <p class="status-content">
+
                             </p>
                         </div>
                         <div class="date-and-time">
-                            <p>Time : 24:40Hrs IST &ensp; | 26 Dec</p>
-                        </div>
-                    </div>
-                    <div class="home-content content">
-                        <div class="information">
-                            <h4>Name</h4>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                            </p>
-                        </div>
-                        <div class="date-and-time">
-                            <p>Time : 24:40Hrs IST &ensp; | 26 Dec</p>
-                        </div>
-                    </div><div class="home-content content">
-                        <div class="information">
-                            <h4>Name</h4>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                            </p>
-                        </div>
-                        <div class="date-and-time">
-                            <p>Time : 24:40Hrs IST &ensp; | 26 Dec</p>
-                        </div>
-                    </div><div class="home-content content">
-                        <div class="information">
-                            <h4>Name</h4>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                            </p>
-                        </div>
-                        <div class="date-and-time">
-                            <p>Time : 24:40Hrs IST &ensp; | 26 Dec</p>
+                            <p class="status-time"></p>
                         </div>
                     </div>
                 </div>
+                <img src="<?= base_url() ?>/static/image/rabbit_hole.png" alt="end of rabbit's hole" class='rabbit-hole'/>
             </div>
             <?php
             include 'footer.php';

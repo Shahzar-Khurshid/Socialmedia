@@ -4,9 +4,15 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>Social Media</title>
-        <link rel="stylesheet" href="http://127.0.0.1/social_media/static/css/style.css">
-        <script src="http://127.0.0.1/social_media/static/js/external/jquery-3.5.0.min.js"></script>
-        <script src="http://127.0.0.1/social_media/static/js/update_info.js"></script>
+        <link rel="stylesheet" href="<?= base_url() ?>/static/css/style.css">
+        <script src="<?= base_url() ?>/static/js/external/jquery-3.5.0.min.js"></script>
+        <script src="<?= base_url() ?>/static/js/update_info.js"></script>
+        <script src="<?= base_url() ?>/static/js/post.js"></script>
+        <script src="<?= base_url() ?>/static/js/fetch_status.js"></script>
+        <script src="<?= base_url() ?>/static/js/script.js"></script>
+        <script>
+            var base_url = '<?= base_url(); ?>';
+        </script>
         <!--<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
         -->
     </head>
@@ -16,13 +22,12 @@
                 <?php
                 include 'header.php';
                 ?>
-
                 <div class="navbar">
                     <div class="dashboard">
-                        <a href="./" class="danger gray">My Dashboard</a>
+                        <a href="<?= base_url() ?>" class="danger gray">My Dashboard</a>
                         <hr>
                     </div>
-                    <a href="<?= base_url(); ?>index.php/Login/logout" class="danger">
+                    <a href="<?= base_url(); ?>/Login/logout" class="danger">
                         <div class="btn">
                             Logout
                         </div>
@@ -32,11 +37,12 @@
             <div class="chose-profile">
                 <div class="select-profile">
                     <div class="profile">
-                        <a href="#" class="danger">Profile</a>
+                        <a href="#" class="danger" id="profile">Profile</a>
+                        <hr class="hr-profile" style="display:none">
                     </div>
                     <div class="edit-profile">
-                        <a href="#" class="gray">Edit Profile</a>
-                        <hr>
+                        <a href="#" class="gray" id="edit-profile">Edit Profile</a>
+                        <hr class="hr-edit-profile">
                     </div>
                 </div>
                 <form class="form" id="edit-form" method="POST" action="">
@@ -45,58 +51,61 @@
                     </div>
                     <div class="each-form-field for-positioning">
                         <label>Name</label>
-                        <input type="text" name="name" class="" value ="<?= $user['name']; ?>" >
+                        <input type="text" name="name" id="user-name" class="" value ="<?= $user['name']; ?>" >
                     </div>
                     <div class="each-form-field for-positioning">
                         <label>Email</label>
                         <input type="text" name="email" class="" value ="<?= $user['email']; ?>" readonly >
                     </div>
                     <div class="each-form-field for-positioning">
-                        <label>Password</label>
-                        <input type="password" name="password" minlength="8" maxlength="20" class="" >
+                        <label>Old Password</label>
+                        <input type="password" name="old-password" id="user-oldpassword" minlength="8" maxlength="20" class="" >
+                    </div>
+                    <div class="each-form-field for-positioning">
+                        <label>New Password</label>
+                        <input type="password" name="new-password" id="user-newpassword" minlength="8" maxlength="20" class="" >
                     </div>
                     <div class="each-form-field for-positioning">
                         <label>Date of Birth</label>
-                        <input type="date" name="date_of_birth" class="" value="<?= $user['date_of_birth']; ?>" >
+                        <input type="date" name="date_of_birth" id="user-date-of-birth" class="" value="<?= $user['date_of_birth']; ?>" >
                     </div>
                     <div class="each-form-field for-positioning">
                         <label>College</label>
-                        <input type="text" name="college" class="" value="<?= $user['college']; ?>" >
+                        <input type="text" name="college" id="user-college" class=""  value="<?= $user['college']; ?>" >
                     </div>
                     <div class="each-form-field for-positioning">
                         <label>Phone number</label>
-                        <input type="number" name="phone_number" class="" minlength="10" maxlength="11"  value="<?= $user['phone_number']; ?>" >
+                        <input type="number" name="phone_number" id="user-phone-number" class="" minlength="10" maxlength="11"  value="<?= $user['phone_number']; ?>" >
                     </div>
                     <div class="each-form-field for-positioning">
                         <button class="" type="submit" value="submit">Update</button>
                     </div>
                 </form>
                 <div class="status my-status">
-                    <form class="status-form">
+                    <form id="status-form" class="status-form">
                         <h3>Write something here</h3>
-                        <textarea name="name"></textarea>
-                        <button type="button" name="post">Submit</button>
+                        <textarea name="status" ></textarea>
+                        <input type="text" name="id" value="<?= $user['id']; ?>" hidden />
+                        <input type="text" name="unique_id" value="<?= $user['unique_id']; ?>" hidden />
+                        <button type="submit" name="post" id="submit-post" disabled="disabled">Submit</button>
                     </form>
-                    <div class="content my-content">
-                        <div class="information my-information">
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                            </p>
-                        </div>
-                        <div class="date-and-time my-date-and-time">
-                            <p>Time : 24:40Hrs IST &ensp; | 26 Dec</p>
-                        </div>
+
+                    <div class="new-post">
                     </div>
-                    <div class="content my-content">
-                        <div class="information my-information">
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                            </p>
-                        </div>
-                        <div class="date-and-time my-date-and-time">
-                            <p> Time : 24:40Hrs IST  | 26 Dec</p>
-                        </div>
+                    <input type="hidden" value="<?= $_SESSION['user_id'] ?>" id="user-id"  hidden />
+                    <div id="all-status">
+                        <div class="content my-content content-placeholder">
+                            <div class="information my-information ">
+                                <p class="status-content">
+                                </p>
+                            </div>
+                            <div class="date-and-time my-date-and-time">
+                                <p class="status-time">
+                                </p>
+                            </div>
+                        </div>    
                     </div>
+                    <img src="<?= base_url() ?>/static/image/rabbit_hole.png" alt="end of rabbit's hole" class='rabbit-hole'/>
                 </div>
             </div>
             <?php

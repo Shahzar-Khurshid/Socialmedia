@@ -6,7 +6,7 @@ $(document).ready(function () {
 
         e.preventDefault(); // avoid to execute the actual submit of the form.
 
-        var url = "./registration/submit";
+        var url = base_url+"/registration/submit";
         var data = $('#registration_form').serialize();
         $.ajax({
             type: "POST",

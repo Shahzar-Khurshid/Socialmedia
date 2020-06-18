@@ -4,9 +4,12 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>Social Media</title>
-        <link rel="stylesheet" href="../static/css/style.css">
-        <script src="../static/js/external/jquery-3.5.0.min.js"></script>
-        <script src="../static/js/registration.js"></script>
+        <link rel="stylesheet" href="<?= base_url() ?>/static/css/style.css">
+        <script src="<?= base_url() ?>/static/js/external/jquery-3.5.0.min.js"></script>
+        <script src="<?= base_url() ?>/static/js/registration.js"></script>
+        <script>
+            var base_url = '<?= base_url(); ?>';
+        </script>
         <!--<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
         -->
     </head>
@@ -19,17 +22,17 @@
                 <div class="bigger-view" id="about-login">
                     <h1>New User</h1>
                     <h1>Create Account</h1>
-                    <a href="./Login" class="danger">Existing User Log-in</a>
+                    <a href="<?= base_url() ?>Login" class="danger">Existing User Log-in</a>
                 </div>
             </div>
             <div class="middle">
                 <div class="type-selection">
                     <div class="existing-user">
-                        <a href="./Login" class="danger">Existing User</a>
-                        <hr>
+                        <a href="<?= base_url() ?>Login" class="danger">Existing User</a>
                     </div>
                     <div class="new-user">
-                        <a href="#" class="danger">New user</a>
+                        <a href="#" class="selected-user-type">New user</a>
+                        <hr class="user-hr">
                     </div>
                 </div>
                 <div class="new-user-form">
@@ -59,7 +62,7 @@
                         </div>
                     </form>
                     <div class="new-existing-choice">
-                        <a href="./Login" class="danger">Existing User,Login</a>
+                        <a href="<?= base_url() ?>/Login" class="danger">Existing User,Login</a>
                     </div>
                 </div>
             </div>
